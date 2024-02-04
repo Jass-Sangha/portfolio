@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <style>
+        section,
+        div,
+        i,
+        span,
+        label,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ul,
+        ol,
+        li {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <title>Portfolio | Jass Sangha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        :root {
+            --bg-clr-500: rgb(25, 54, 74);
+            --secondary-clr-500: rgb(22, 36, 46);
+            --accent-clr-500: rgb(18, 39, 56);
+            --text-clr-400: rgb(244, 244, 244);
+            --text-clr-500: rgb(163, 163, 163);
+            --border-clr-500: rgb(13, 55, 84);
+            --border-clr-400: rgb(255, 200, 0);
+        }
+
+        body:has(#theme:checked) {
+            --bg-clr-500: rgb(250, 250, 250);
+            --secondary-clr-500: rgb(235, 235, 235);
+            --accent-clr-500: rgb(202, 204, 207);
+            --text-clr-400: rgb(44, 44, 44);
+            --text-clr-500: rgb(111, 111, 111);
+            --border-clr-500: rgb(222, 222, 222);
+            --border-clr-400: rgb(140, 0, 255);
+        }
+
+        body {
+            background-color: var(--bg-clr-500);
+            min-height: 100vh;
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        main {
+            border-left: 1px solid var(--secondary-clr-500);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        main * {
+            height: auto;
+            outline: none;
+        }
+
+        #editor {
+            width: 100%;
+        }
+
+        /*  */
+        #navigation {
+            display: flex;
+        }
+
+        #navigation .explorer {
+            background-color: var(--secondary-clr-500);
+            width: 200px;
+            border: 1px solid var(--border-clr-500);
+        }
+
+        #navigation .menu {
+            background-color: var(--accent-clr-500);
+            width: 50px;
+        }
+
+        #header {
+            background-color: var(--secondary-clr-500);
+            height: 30px;
+            display: flex;
+        }
+
+        #header div label {
+            font-size: 12px;
+            color: var(--text-clr-500);
+            padding-left: .8em;
+            padding-right: .7em;
+            border-right: 1px solid var(--border-clr-500);
+            cursor: pointer;
+            text-wrap: nowrap;
+        }
+
+
+
+        #header div label::before {
+            content: '\f069';
+            font-family: FontAwesome;
+            display: inline-block;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            padding-right: .5em;
+            color: var(--border-clr-400);
+        }
+
+        #header div label::after {
+            content: '\00d7';
+            opacity: 0;
+            font-size: 18px;
+            padding-left: .5em;
+            color: white;
+            font-weight: 300;
+        }
+
+        #footer {
+            height: 20px;
+            background-color: var(--secondary-clr-500);
+            padding-inline: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #footer div>i {
+            font-style: normal;
+            font-size: 10px;
+            padding-inline: .3em;
+            color: var(--text-clr-500);
+        }
+
+        #footer div i {
+            cursor: default
+        }
+
+        #footer div i:hover {
+            background-color: var(--bg-clr-500);
+        }
+
+        #footer div span>i {
+            font-style: normal;
+            font-size: 10px;
+            margin-inline: 0em;
+            color: var(--text-clr-500);
+        }
+
+        #footer i span {
+            font-weight: 300;
+        }
+
+        #footer i a {
+            text-decoration: none;
+            color: var(--text-clr-500)
+        }
+
+        #navigation {
+            height: calc(100vh - 20px);
+        }
+
+        #editor {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .editorContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editorContainer .editor {
+            display: flex;
+            flex-flow: column;
+            max-height: calc(100vh - 200px);
+            order: 1;
+        }
+
+        .terminal {
+            /* transform: scale(0, 1); */
+            display: flex;
+            flex-direction: column;
+            height: 170px;
+            overflow: hidden;
+            background-color: var(--accent-clr-500);
+        }
+
+        .terminal .header {
+            border-top: 1px solid var(--border-clr-400);
+            height: 25px;
+            padding-left: .5em;
+            display: flex;
+        }
+
+        .terminal .header label {
+            font-style: normal;
+            font-size: 10px;
+            margin-inline: 1em;
+            padding-block: .8em;
+            color: var(--text-clr-500);
+            cursor: pointer;
+        }
+
+        .terminal .header label:hover {
+            color: var(--border-clr-400);
+        }
+
+        .terminal .content {
+            order: 1;
+            font-style: normal;
+            font-size: 12px;
+            padding: .5rem 1rem .2rem 1rem;
+            color: var(--text-clr-400);
+            overflow: hidden;
+        }
+
+        .terminal .content div div {
+            display: none;
+        }
+
+        .terminal .content input[type="radio"]:checked~div {
+            display: block;
+        }
+
+        .terminal .content:has(div #problems:checked)~.header .problems {
+            color: var(--border-clr-400);
+            padding-bottom: 1.8em;
+            border-bottom: 1px solid var(--border-clr-400);
+        }
+
+        .terminal .content:has(div #output:checked)~.header .output {
+            color: var(--border-clr-400);
+            padding-bottom: 1.8em;
+            border-bottom: 1px solid var(--border-clr-400);
+        }
+
+        .terminal .content:has(div #terminals:checked)~.header .terminals {
+            color: var(--border-clr-400);
+            padding-bottom: 1.8em;
+            border-bottom: 1px solid var(--border-clr-400);
+        }
+
+        .terminal .content:has(div #ports:checked)~.header .ports {
+            color: var(--border-clr-400);
+            padding-bottom: 1.8em;
+            border-bottom: 1px solid var(--border-clr-400);
+        }
+
+        .terminal .content:has(div #gitlens:checked)~.header .gitlens {
+            color: var(--border-clr-400);
+            padding-bottom: 1.8em;
+            border-bottom: 1px solid var(--border-clr-400);
+        }
+    </style>
+    <style>
+        #navigation .explorer .title {
+            background-color: var(--secondary-clr-500);
+            color: var(--text-clr-500);
+            font-size: 12px;
+            padding: .48em;
+        }
+
+        #navigation .explorer .subTitle {
+            background-color: var(--bg-clr-500);
+            color: var(--text-clr-500);
+            font-size: 12px;
+            padding: .3em;
+        }
+
+        #navigation .explorer .subTitle::before {
+            content: '';
+            position: sticky;
+            border: solid var(--text-clr-500);
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            width: 4px;
+            margin-inline: 1em;
+            margin-bottom: 3px;
+            transform: rotate(45deg);
+        }
+
+        #navigation .explorer label {
+            color: var(--text-clr-500);
+            display: block;
+            font-size: 12px;
+            cursor: pointer;
+            padding-block: .1em;
+            padding-left: 2rem;
+        }
+
+        #navigation .explorer label::before {
+            content: '\f13b';
+            font-family: FontAwesome;
+            display: inline-block;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            padding-right: .7em;
+            color: rgb(223, 70, 31);
+            padding-left: 2px;
+        }
+
+        #navigation .explorer label:hover {
+            background-color: var(--bg-clr-500);
+        }
+
+        #navigation .explorer .folder {
+            position: relative;
+            color: var(--text-clr-500);
+            display: block;
+            font-size: 12px;
+            cursor: pointer;
+            padding-block: .1em;
+            padding-left: 2rem;
+        }
+
+        #navigation .explorer .folder::before {
+            content: '\f07b';
+            font-family: FontAwesome;
+            display: inline-block;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            padding-right: .7em;
+            color: gray;
+        }
+
+        #navigation .explorer .folder:hover {
+            background-color: var(--bg-clr-500);
+        }
+
+        #editor .editor {
+            cursor: text;
+        }
+
+        #editor .editor a {
+            cursor: pointer;
+        }
+
+        #editor .editor div {
+            display: none;
+            color: var(--text-clr-500);
+            padding-top: .5rem;
+            padding-inline: 1rem;
+            font-size: 14px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: min-content;
+        }
+
+        /* width */
+        #editor .editor div::-webkit-scrollbar {
+            height: 2px;
+        }
+
+        /* Track */
+        #editor .editor div::-webkit-scrollbar-track {
+            border-inline: 1px solid var(--border-clr-500);
+        }
+
+        /* Handle */
+        #editor .editor div::-webkit-scrollbar-thumb {
+            background: #e8f1ff33;
+        }
+
+        /* Handle on hover */
+        #editor .editor div::-webkit-scrollbar-thumb:hover {
+            background: #565656;
+        }
+
+        #header {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+
+        /* width */
+        #header::-webkit-scrollbar {
+            height: 2px;
+        }
+
+        /* Track */
+        #header::-webkit-scrollbar-track {
+            background: #f1f1f1c0;
+        }
+
+        /* Handle */
+        #header::-webkit-scrollbar-thumb {
+            background: #7b7b7b;
+        }
+
+        /* Handle on hover */
+        #header::-webkit-scrollbar-thumb:hover {
+            background: #565656;
+        }
+
+        #header div label {
+            height: 100%;
+        }
+
+        #header div input[type="radio"]:checked~label {
+            background-color: var(--bg-clr-500);
+            border-bottom: 1px solid var(--border-clr-400);
+        }
+
+        #header div input[type="radio"]:checked~label:after {
+            opacity: .5;
+            cursor: default;
+        }
+
+        /* ADD FILE */
+        #editor:has(div #index:checked)~#navigation .explorer .index {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #index:checked)~.editor .index {
+            display: block;
+        }
+
+        /*  */
+
+        #editor:has(div #experience:checked)~#navigation .explorer .experience {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #experience:checked)~.editor .experience {
+            display: block;
+        }
+
+        /*  */
+        #editor:has(div #contact:checked)~#navigation .explorer .contact {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #contact:checked)~.editor .contact {
+            display: block;
+        }
+
+        /*  */
+        #editor:has(div #about:checked)~#navigation .explorer .about {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #about:checked)~.editor .about {
+            display: block;
+        }
+
+        /*  */
+
+        #header div #image~label {
+            display: none;
+        }
+
+        #editor:has(div #image:checked)~#navigation .explorer div .image {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #image:checked)~.editor .image {
+            margin-top: 2rem;
+            margin-inline: auto;
+            display: block;
+        }
+    </style>
+    <style>
+        #navigation .explorer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #navigation .explorer .folder.disabled {
+            margin-left: .5em;
+            opacity: .5;
+            cursor: default;
+        }
+
+        #navigation .explorer .file.disabled {
+            margin-left: .5em;
+            opacity: .5;
+            cursor: default;
+        }
+
+        #navigation .explorer .file.disabled::before {
+            content: '\f87d';
+            color: var(--text-clr-500);
+            font-size: 10px;
+        }
+
+        #navigation .explorer .folder::after {
+            content: '';
+            position: absolute;
+            border: solid var(--text-clr-500);
+            border-width: 0 1px 1px 0;
+            display: inline-block;
+            padding: 3px;
+            width: 3px;
+            top: .5em;
+            left: .4em;
+            margin-inline: 1em;
+            margin-bottom: 3px;
+            transform: rotate(-45deg);
+        }
+
+        .folder~input[type="checkbox"] {
+            display: none;
+        }
+
+        .folder~ul {
+            position: relative;
+            display: none;
+        }
+
+        .folder~ul label {
+            padding-left: 3.3em !important;
+        }
+
+        .folder~ul a {
+            text-decoration: none;
+        }
+
+        .folder~ul .img::before {
+            content: '\f1c5' !important;
+            color: rgb(0, 128, 124) !important;
+        }
+
+        .folder~input[type="checkbox"]:checked~ul {
+            display: block;
+        }
+    </style>
+    <style>
+        .menu {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-top: .5rem;
+        }
+
+        .menu i {
+            color: var(--text-clr-500);
+            display: block;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+
+        .menu i.disabled {
+            opacity: .5;
+            cursor: default;
+        }
+
+        .menu i {
+            padding-block: .5em;
+        }
+
+        .menu i:first-child {
+            padding-top: .1em;
+        }
+
+        .menu i:nth-child(2) {
+            color: var(--text-clr-400) !important;
+            width: 100%;
+            opacity: 1;
+
+        }
+
+        .folder.settings~ul li input {
+            display: block;
+        }
+
+        .folder.settings~ul {
+            padding-block: .5em;
+            padding-inline: 2rem;
+            position: absolute;
+            display: none;
+            right: 56px;
+            bottom: 26px;
+            border-radius: .5rem;
+            background-color: var(--accent-clr-500);
+            color: var(--text-clr-500);
+            list-style: none;
+        }
+
+        .folder.settings~ul li input,
+        .folder.settings~ul li label {
+            cursor: pointer;
+        }
+
+        .folder.settings~ul li a {
+            text-decoration: none;
+            color: var(--text-clr-500);
+        }
+
+        .folder.settings~ul li:first-child {
+            display: inline-flex;
+        }
+
+        .folder.settings~input[type="checkbox"]:checked~ul {
+            display: block;
+        }
+    </style>
+</head>
+
+<body style="max-width:1600px;margin-inline:auto">
+    <main>
+        <section id="editor">
+            <div class="editorContainer">
+                <div id="header">
+                    <!-- ADD FILE -->
+                    <div>
+                        <input type="radio" name="openedFile" id="index" checked>
+                        <label for="index">index.html(preview)</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="openedFile" id="experience">
+                        <label for="experience">experience.html(preview)</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="openedFile" id="about">
+                        <label for="about">about.html(preview)</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="openedFile" id="contact">
+                        <label for="contact">contact.html(preview)</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="openedFile" id="image">
+                        <label for="image">image.png(preview)</label>
+                    </div>
+
+                </div>
+                <div contenteditable class="editor">
+                    <!-- ADD FILE -->
+                    <div class="index">
+                        <h1>Jaskaran Singh</h1> <br>
+                        <h2>Front-end Developer</h2><br>
+                        <br>
+                        Tech has always been my jam! I was coding up C programs at 15, and now I am obsessed with<br>
+                        everything from software development to the coolest hardware out there<br>
+                        <br>
+                        Open to join forces and explore the exciting world of web development! <br>
+                        Open to collaboration, learning, and growth.<br>
+                        <br>
+
+                    </div>
+                    <div class="experience">experience.html</div>
+                    <div class="about">about.html</div>
+                    <div class="contact">contact.html</div>
+                    <div class="image">
+                        <img src="https://images.unsplash.com/photo-1566566716921-b50e82140547?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXJteXxlbnwwfHwwfHx8MA%3D%3D "
+                            alt="army">
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+            </div>
+            <div class=" terminal">
+                <div class="content">
+                    <div>
+                        <input type="radio" name="terminal" id="problems">
+                        <div class="problems">
+                            Portfolio.html<br>
+                            > "Jaskaran": Unknown word.<br>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="terminal" id="output">
+                        <div class="output" contenteditable="">
+
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="terminal" id="terminals" checked>
+                        <div class="terminal">
+                            PS C:\Users\Jass\Code\Gitlab\Portfolio>npm run dev <br>
+                            > Portfolio@0.1.0 dev<br>
+                            <br>
+                            ▲ Next.js 14.1.0<br>
+                            - Local: http://localhost:3000<br>
+                            <br>PS C:\Users\Jass\Code\Gitlab\Portfolio> <span contenteditable="">npm run
+                                bui</span><br>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="terminal" id="ports">
+                        <div class="ports">
+                            No forwarded ports. Forward a port to access your locally running services over the
+                            internet.
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="terminal" id="gitlens">
+                        <div class="gitlens active">
+                            COMMIT GRAPH: PORTFOLIO<br>
+                            <br>
+                            Your Subscription has been ended.<br>
+                            Start a free GitKraken trial for 7 days<br>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="header">
+                    <label for="problems" class="problems">PROBLEMS</label>
+                    <label for="output" class="output">OUTPUT</label>
+                    <label for="terminals" class="terminals">TERMINAL</label>
+                    <label for="ports" class="ports">PORTS</label>
+                    <label for="gitlens" class="gitlens">GITLENS</label>
+                </div>
+            </div>
+        </section>
+        <section id="navigation">
+            <div class="explorer">
+                <div>
+                    <div class="title">EXPLORER</div>
+                    <div class="subTitle">Portfolio</div>
+                    <!-- <div class="folder">Laravel</div> -->
+                    <div>
+                        <label class="folder" for="folderToggleLaravel">Laravel</label>
+                        <input type="checkbox" id="folderToggleLaravel">
+                        <ul>
+                            <label class="folder disabled">app</label>
+                            <label class="folder disabled">bootstrap</label>
+                            <label class="folder disabled">config</label>
+                            <label class="folder disabled">database</label>
+                            <label class="folder disabled">public</label>
+                            <label class="folder disabled">resources</label>
+                            <label class="folder disabled">routes</label>
+                            <label class="folder disabled">tests</label>
+                            <label class="folder disabled">vendor</label>
+                            <label class="file disabled">.editorconfig</label>
+                            <label class="file disabled">.env</label>
+                            <label class="file disabled">.gitignore</label>
+                            <label class="file disabled">composer.json</label>
+                            <label class="file disabled">compser.lock</label>
+                            <label class="file disabled">artisan</label>
+                            <label class="file disabled">serve.php</label>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="folder" for="folderToggleNextJS">NextJs</label>
+                        <input type="checkbox" id="folderToggleNextJS">
+                        <ul>
+                            <label class="folder disabled">.next</label>
+                            <label class="folder disabled">app</label>
+                            <label class="folder disabled">assets</label>
+                            <label class="folder disabled">components</label>
+                            <label class="folder disabled">lib</label>
+                            <label class="folder disabled">node_modules</label>
+                            <label class="folder disabled">public</label>
+                            <label class="file disabled">.eslintrc.json</label>
+                            <label class="file disabled">.gitignore</label>
+                            <label class="file disabled">initdb.js</label>
+                            <label class="file disabled">next.config.js</label>
+                            <label class="file disabled">package-lock.json</label>
+                            <label class="file disabled">package.json</label>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="folder" for="folderToggleImages">Images</label>
+                        <input type="checkbox" id="folderToggleImages">
+                        <ul>
+                            <label class="img" for="image">army.png</label>
+                        </ul>
+                    </div>
+                    <!-- ADD FILE -->
+                    <label for="index" class="index">index.html</label>
+                    <label for="experience" class="experience">experience.html</label>
+                    <label for="about" class="about">about.html</label>
+                    <label for="contact" class="contact">contact.html</label>
+                    <!--  -->
+                </div>
+                <div>
+                    <div class="subTitle">OUTLINE</div>
+                    <div class="subTitle">TIMELINE</div>
+                </div>
+            </div>
+            <div class="menu">
+                <div>
+                    <i class="fa-solid fa-bars disabled"></i>
+                    <i class="fa-regular fa-folder disabled"></i>
+                    <i class="fa-solid fa-magnifying-glass disabled"></i>
+                </div>
+                <div>
+                    <div style="margin-bottom:.3rem">
+                        <label class="folder settings" for="folderToggleAccounts">
+                            <i class="fa-regular fa-user"></i>
+                        </label>
+                        <input type="checkbox" id="folderToggleAccounts">
+                        <ul>
+                            <li><a target="blank" href="https://www.instagram.com/jasssangha.1/">instagram.com</a></li>
+                            <hr>
+                            <li><a target="blank"
+                                    href="https://www.linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="folder settings" for="folderToggleSettings">
+                            <i class="fa-solid fa-gear"></i>
+                        </label>
+                        <input type="checkbox" id="folderToggleSettings">
+                        <ul>
+                            <li>
+                                <input type="checkbox" name="theme" id="theme">
+                                <label style="padding-left:14px !important" for="theme">Light Theme</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <section id="footer">
+        <div style="margin-top:-4px">
+            <i><a href="https://github.com/Jass-Sangha">main*</a></i>
+            <span>
+                <i class="fa-solid fa-circle-xmark"><span> 0</span></i>
+                <i class="fa-solid fa-triangle-exclamation"><span> 0</span></i>
+                <i class="fa-solid fa-circle-info"><span> 1</span></i>
+            </span>
+            <i><a href="https://github.com/Jass-Sangha">Git Graph</a></i>
+            <i><a href="https://www.linkedin.com/in/jaskaran-singh-sangha/">Linkedin</a></i>
+        </div>
+        <div style="margin-top:-4px">
+            <i>UTF-8</i>
+            <i>CRLF</i>
+            <i>HTML</i>
+            <i class="fa-solid fa-ban"> <span>Port:5500</span></i>
+            <i class="fa-regular fa-bell"></i>
+        </div>
+    </section>
+</body>
+
+</html>
