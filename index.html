@@ -584,11 +584,13 @@
             padding-top: .1em;
         }
 
-        .menu i:nth-child(2) {
+        .menu label,
+        .menu label i {
             color: var(--text-clr-400) !important;
             width: 100%;
             opacity: 1;
-
+            cursor: pointer;
+            padding-top: .5em
         }
 
         .folder.settings~ul li input {
@@ -626,10 +628,144 @@
             display: block;
         }
     </style>
+    <style>
+        .explorer {
+            /* transform: scale(0, 1); */
+            margin-left: -200px;
+            opacity: 0;
+            transition: margin 250ms ease-in-out, opacity 100ms ease-in-out;
+        }
+
+        .menu {
+            z-index: 1;
+        }
+
+        .menu:has(div #menu:checked)~.explorer {
+            margin-left: 0;
+            opacity: 1;
+            transition: margin 250ms ease-in-out, opacity 100ms ease-in-out;
+        }
+
+        @media(max-width:786px) {
+            .explorer {
+                margin-left: 0px;
+                opacity: 1;
+            }
+
+            .menu:has(div #menu:checked)~.explorer {
+                margin-left: -200px;
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body style="max-width:1600px;margin-inline:auto">
     <main>
+        <section id="navigation">
+            <div class="menu">
+                <div>
+                    <i class="fa-solid fa-bars disabled"></i>
+
+                    <label for="menu"><i class="fa-regular fa-folder"></i></label>
+                    <input type="checkbox" name="" id="menu" style="display: none;" checked>
+                    <i class="fa-solid fa-magnifying-glass disabled"></i>
+                </div>
+                <div>
+                    <div style="margin-bottom:.3rem">
+                        <label class="folder settings" for="folderToggleAccounts">
+                            <i class="fa-regular fa-user"></i>
+                        </label>
+                        <input type="checkbox" id="folderToggleAccounts">
+                        <ul>
+                            <li><a target="blank" href="https://www.instagram.com/jasssangha.1/">instagram.com</a></li>
+                            <hr>
+                            <li><a target="blank"
+                                    href="https://www.linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="folder settings" for="folderToggleSettings">
+                            <i class="fa-solid fa-gear"></i>
+                        </label>
+                        <input type="checkbox" id="folderToggleSettings">
+                        <ul>
+                            <li>
+                                <input type="checkbox" name="theme" id="theme">
+                                <label style="padding-left:14px !important" for="theme">Light Theme</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="explorer">
+                <div>
+                    <div class="title">EXPLORER</div>
+                    <div class="subTitle">Portfolio</div>
+                    <!-- <div class="folder">Laravel</div> -->
+                    <div>
+                        <label class="folder" for="folderToggleLaravel">Laravel</label>
+                        <input type="checkbox" id="folderToggleLaravel">
+                        <ul>
+                            <label class="folder disabled">app</label>
+                            <label class="folder disabled">bootstrap</label>
+                            <label class="folder disabled">config</label>
+                            <label class="folder disabled">database</label>
+                            <label class="folder disabled">public</label>
+                            <label class="folder disabled">resources</label>
+                            <label class="folder disabled">routes</label>
+                            <label class="folder disabled">tests</label>
+                            <label class="folder disabled">vendor</label>
+                            <label class="file disabled">.editorconfig</label>
+                            <label class="file disabled">.env</label>
+                            <label class="file disabled">.gitignore</label>
+                            <label class="file disabled">composer.json</label>
+                            <label class="file disabled">compser.lock</label>
+                            <label class="file disabled">artisan</label>
+                            <label class="file disabled">serve.php</label>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="folder" for="folderToggleNextJS">NextJs</label>
+                        <input type="checkbox" id="folderToggleNextJS">
+                        <ul>
+                            <label class="folder disabled">.next</label>
+                            <label class="folder disabled">app</label>
+                            <label class="folder disabled">assets</label>
+                            <label class="folder disabled">components</label>
+                            <label class="folder disabled">lib</label>
+                            <label class="folder disabled">node_modules</label>
+                            <label class="folder disabled">public</label>
+                            <label class="file disabled">.eslintrc.json</label>
+                            <label class="file disabled">.gitignore</label>
+                            <label class="file disabled">initdb.js</label>
+                            <label class="file disabled">next.config.js</label>
+                            <label class="file disabled">package-lock.json</label>
+                            <label class="file disabled">package.json</label>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="folder" for="folderToggleImages">Images</label>
+                        <input type="checkbox" id="folderToggleImages">
+                        <ul>
+                            <label class="img" for="image">army.png</label>
+                        </ul>
+                    </div>
+                    <!-- ADD FILE -->
+                    <label for="index" class="index">index.html</label>
+                    <label for="experience" class="experience">experience.html</label>
+                    <label for="about" class="about">about.html</label>
+                    <label for="contact" class="contact">contact.html</label>
+                    <!--  -->
+                </div>
+                <div>
+                    <div class="subTitle">OUTLINE</div>
+                    <div class="subTitle">TIMELINE</div>
+                </div>
+            </div>
+
+        </section>
         <section id="editor">
             <div class="editorContainer">
                 <div id="header">
@@ -733,107 +869,6 @@
                     <label for="ports" class="ports">PORTS</label>
                     <label for="gitlens" class="gitlens">GITLENS</label>
                 </div>
-            </div>
-        </section>
-        <section id="navigation">
-            <div class="explorer">
-                <div>
-                    <div class="title">EXPLORER</div>
-                    <div class="subTitle">Portfolio</div>
-                    <!-- <div class="folder">Laravel</div> -->
-                    <div>
-                        <label class="folder" for="folderToggleLaravel">Laravel</label>
-                        <input type="checkbox" id="folderToggleLaravel">
-                        <ul>
-                            <label class="folder disabled">app</label>
-                            <label class="folder disabled">bootstrap</label>
-                            <label class="folder disabled">config</label>
-                            <label class="folder disabled">database</label>
-                            <label class="folder disabled">public</label>
-                            <label class="folder disabled">resources</label>
-                            <label class="folder disabled">routes</label>
-                            <label class="folder disabled">tests</label>
-                            <label class="folder disabled">vendor</label>
-                            <label class="file disabled">.editorconfig</label>
-                            <label class="file disabled">.env</label>
-                            <label class="file disabled">.gitignore</label>
-                            <label class="file disabled">composer.json</label>
-                            <label class="file disabled">compser.lock</label>
-                            <label class="file disabled">artisan</label>
-                            <label class="file disabled">serve.php</label>
-                        </ul>
-                    </div>
-                    <div>
-                        <label class="folder" for="folderToggleNextJS">NextJs</label>
-                        <input type="checkbox" id="folderToggleNextJS">
-                        <ul>
-                            <label class="folder disabled">.next</label>
-                            <label class="folder disabled">app</label>
-                            <label class="folder disabled">assets</label>
-                            <label class="folder disabled">components</label>
-                            <label class="folder disabled">lib</label>
-                            <label class="folder disabled">node_modules</label>
-                            <label class="folder disabled">public</label>
-                            <label class="file disabled">.eslintrc.json</label>
-                            <label class="file disabled">.gitignore</label>
-                            <label class="file disabled">initdb.js</label>
-                            <label class="file disabled">next.config.js</label>
-                            <label class="file disabled">package-lock.json</label>
-                            <label class="file disabled">package.json</label>
-                        </ul>
-                    </div>
-                    <div>
-                        <label class="folder" for="folderToggleImages">Images</label>
-                        <input type="checkbox" id="folderToggleImages">
-                        <ul>
-                            <label class="img" for="image">army.png</label>
-                        </ul>
-                    </div>
-                    <!-- ADD FILE -->
-                    <label for="index" class="index">index.html</label>
-                    <label for="experience" class="experience">experience.html</label>
-                    <label for="about" class="about">about.html</label>
-                    <label for="contact" class="contact">contact.html</label>
-                    <!--  -->
-                </div>
-                <div>
-                    <div class="subTitle">OUTLINE</div>
-                    <div class="subTitle">TIMELINE</div>
-                </div>
-            </div>
-            <div class="menu">
-                <div>
-                    <i class="fa-solid fa-bars disabled"></i>
-                    <i class="fa-regular fa-folder disabled"></i>
-                    <i class="fa-solid fa-magnifying-glass disabled"></i>
-                </div>
-                <div>
-                    <div style="margin-bottom:.3rem">
-                        <label class="folder settings" for="folderToggleAccounts">
-                            <i class="fa-regular fa-user"></i>
-                        </label>
-                        <input type="checkbox" id="folderToggleAccounts">
-                        <ul>
-                            <li><a target="blank" href="https://www.instagram.com/jasssangha.1/">instagram.com</a></li>
-                            <hr>
-                            <li><a target="blank"
-                                    href="https://www.linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <label class="folder settings" for="folderToggleSettings">
-                            <i class="fa-solid fa-gear"></i>
-                        </label>
-                        <input type="checkbox" id="folderToggleSettings">
-                        <ul>
-                            <li>
-                                <input type="checkbox" name="theme" id="theme">
-                                <label style="padding-left:14px !important" for="theme">Light Theme</label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>
