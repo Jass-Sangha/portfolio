@@ -74,7 +74,7 @@
         }
 
         main {
-            border-left: 1px solid var(--secondary-clr-500);
+            border-right: 1px solid var(--secondary-clr-500);
             display: flex;
             justify-content: space-between;
         }
@@ -369,7 +369,7 @@
             display: none;
             color: var(--text-clr-500);
             padding-top: .5rem;
-            padding-inline: 1rem;
+            padding: .5rem 4rem .5rem 1rem;
             font-size: 14px;
             overflow-x: hidden;
             overflow-y: auto;
@@ -598,11 +598,11 @@
         }
 
         .folder.settings~ul {
-            padding-block: .5em;
+            padding-block: 1em;
             padding-inline: 2rem;
             position: absolute;
             display: none;
-            right: 56px;
+            left: 56px;
             bottom: 26px;
             border-radius: .5rem;
             background-color: var(--accent-clr-500);
@@ -624,7 +624,7 @@
             display: inline-flex;
         }
 
-        .folder.settings~input[type="checkbox"]:checked~ul {
+        .folder.settings~input[type="radio"]:checked~ul {
             display: block;
         }
     </style>
@@ -633,7 +633,7 @@
             /* transform: scale(0, 1); */
             margin-left: -200px;
             opacity: 0;
-            transition: margin 250ms ease-in-out, opacity 100ms ease-in-out;
+            transition: margin 250ms ease-in-out, opacity 250ms ease-in-out;
         }
 
         .menu {
@@ -643,7 +643,7 @@
         .menu:has(div #menu:checked)~.explorer {
             margin-left: 0;
             opacity: 1;
-            transition: margin 250ms ease-in-out, opacity 100ms ease-in-out;
+            transition: margin 250ms ease-in-out, opacity 250ms ease-in-out;
         }
 
         @media(max-width:786px) {
@@ -676,8 +676,12 @@
                         <label class="folder settings" for="folderToggleAccounts">
                             <i class="fa-regular fa-user"></i>
                         </label>
-                        <input type="checkbox" id="folderToggleAccounts">
+                        <input type="radio" name="socialAccounts" id="folderToggleAccounts">
                         <ul>
+                            <li><a href="https://codepen.com/Jass-Sangha/portfolio">Codepen/pen</a></li>
+                            <hr>
+                            <li><a href="https://github.com/Jass-Sangha/portfolio">Github.com</a></li>
+                            <hr>
                             <li><a target="blank" href="https://www.instagram.com/jasssangha.1/">instagram.com</a></li>
                             <hr>
                             <li><a target="blank"
@@ -688,7 +692,7 @@
                         <label class="folder settings" for="folderToggleSettings">
                             <i class="fa-solid fa-gear"></i>
                         </label>
-                        <input type="checkbox" id="folderToggleSettings">
+                        <input type="radio" name="socialAccounts" id="folderToggleSettings">
                         <ul>
                             <li>
                                 <input type="checkbox" name="theme" id="theme">
@@ -874,13 +878,13 @@
     </main>
     <section id="footer">
         <div style="margin-top:-4px">
-            <i><a href="https://github.com/Jass-Sangha">main*</a></i>
+            <i><a href="https://github.com/Jass-Sangha/portfolio">main*</a></i>
             <span>
                 <i class="fa-solid fa-circle-xmark"><span> 0</span></i>
                 <i class="fa-solid fa-triangle-exclamation"><span> 0</span></i>
                 <i class="fa-solid fa-circle-info"><span> 1</span></i>
             </span>
-            <i><a href="https://github.com/Jass-Sangha">Git Graph</a></i>
+            <i><a href="https://github.com/Jass-Sangha/portfolio">Git Graph</a></i>
             <i><a href="https://www.linkedin.com/in/jaskaran-singh-sangha/">Linkedin</a></i>
         </div>
         <div style="margin-top:-4px">
