@@ -545,6 +545,10 @@
             text-decoration: none;
         }
 
+        img {
+            width: 100%;
+        }
+
         .folder~ul .img::before {
             content: '\f1c5' !important;
             color: rgb(0, 128, 124) !important;
@@ -647,6 +651,10 @@
         }
 
         @media(max-width:786px) {
+            .hide {
+                display: none;
+            }
+
             .explorer {
                 margin-left: 0px;
                 opacity: 1;
@@ -879,7 +887,7 @@
     <section id="footer">
         <div style="margin-top:-4px">
             <i><a href="https://github.com/Jass-Sangha/portfolio">main*</a></i>
-            <span>
+            <span class="hide">
                 <i class="fa-solid fa-circle-xmark"><span> 0</span></i>
                 <i class="fa-solid fa-triangle-exclamation"><span> 0</span></i>
                 <i class="fa-solid fa-circle-info"><span> 1</span></i>
@@ -888,8 +896,8 @@
             <i><a href="https://www.linkedin.com/in/jaskaran-singh-sangha/">Linkedin</a></i>
         </div>
         <div style="margin-top:-4px">
-            <i>UTF-8</i>
-            <i>CRLF</i>
+            <i class="hide">UTF-8</i>
+            <i class="hide">CRLF</i>
             <i>HTML</i>
             <i class="fa-solid fa-ban"> <span>Port:5500</span></i>
             <i class="fa-regular fa-bell"></i>
