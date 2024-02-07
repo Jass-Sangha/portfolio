@@ -672,6 +672,38 @@
         #header,
         #editor>.terminal {
             max-width: calc(100% - 50px);
+            transition: margin 250ms ease-in-out;
+        }
+
+        .terminal .header {
+            position: relative;
+        }
+
+        .terminal .header input {
+            display: none;
+        }
+
+        .terminalToggle::before {
+            content: '';
+            position: absolute;
+            border: solid var(--text-clr-500);
+            border-width: 0 1px 1px 0;
+            display: inline-block;
+            padding: 3px;
+            width: 3px;
+            top: 1em;
+            right: 1em;
+            margin-inline: 1em;
+            margin-bottom: 3px;
+            transform: rotate(45deg);
+        }
+
+        .terminal:has(.header #terminalToggle:checked) {
+            margin-bottom: -163px;
+        }
+
+        #terminalToggle:checked+label::before {
+            transform: rotate(225deg);
         }
     </style>
 </head>
@@ -885,8 +917,10 @@
                     <label for="problems" class="problems">PROBLEMS</label>
                     <label for="output" class="output">OUTPUT</label>
                     <label for="terminals" class="terminals">TERMINAL</label>
-                    <label for="ports" class="ports">PORTS</label>
+                    <label for="ports" class="hide ports">PORTS</label>
                     <label for="gitlens" class="gitlens">GITLENS</label>
+                    <input type="checkbox" id="terminalToggle" checked>
+                    <label for="terminalToggle" class="terminalToggle"></label>
                 </div>
             </div>
         </section>
