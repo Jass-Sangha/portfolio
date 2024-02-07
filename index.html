@@ -668,12 +668,18 @@
                 opacity: 0;
             }
 
+        }
+
+        @media(max-width:768px) {
+
             #header,
             #editor>.terminal {
+                max-width: 100%;
                 max-width: calc(100% - 50px);
                 transition: margin 250ms ease-in-out;
             }
         }
+
 
 
         .terminal .header {
