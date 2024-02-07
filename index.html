@@ -366,7 +366,7 @@
             cursor: pointer;
         }
 
-        #editor .editor div {
+        #editor .editor section {
             display: none;
             color: var(--text-clr-500);
             padding-top: .5rem;
@@ -378,22 +378,22 @@
         }
 
         /* width */
-        #editor .editor div::-webkit-scrollbar {
+        #editor .editor section::-webkit-scrollbar {
             height: 2px;
         }
 
         /* Track */
-        #editor .editor div::-webkit-scrollbar-track {
+        #editor .editor section::-webkit-scrollbar-track {
             border-inline: 1px solid var(--border-clr-500);
         }
 
         /* Handle */
-        #editor .editor div::-webkit-scrollbar-thumb {
+        #editor .editor section::-webkit-scrollbar-thumb {
             background: #e8f1ff33;
         }
 
         /* Handle on hover */
-        #editor .editor div::-webkit-scrollbar-thumb:hover {
+        #editor .editor section::-webkit-scrollbar-thumb:hover {
             background: #565656;
         }
 
@@ -653,7 +653,7 @@
             transition: margin 250ms ease-in-out, opacity 250ms ease-in-out;
         }
 
-        @media(max-width:786px) {
+        @media(max-width:992px) {
             .hide {
                 display: none;
             }
@@ -667,13 +667,14 @@
                 margin-left: -200px;
                 opacity: 0;
             }
+
+            #header,
+            #editor>.terminal {
+                max-width: calc(100% - 50px);
+                transition: margin 250ms ease-in-out;
+            }
         }
 
-        #header,
-        #editor>.terminal {
-            max-width: calc(100% - 50px);
-            transition: margin 250ms ease-in-out;
-        }
 
         .terminal .header {
             position: relative;
@@ -721,6 +722,7 @@
                     <input type="checkbox" name="" id="menu" style="display: none;" checked>
                     <i class="fa-solid fa-magnifying-glass disabled"></i>
                 </div>
+                <input type="radio" name="socialAccounts" id="close">
                 <div>
                     <div style="margin-bottom:.3rem">
                         <label class="folder settings" for="folderToggleAccounts">
@@ -728,14 +730,16 @@
                         </label>
                         <input type="radio" name="socialAccounts" id="folderToggleAccounts">
                         <ul>
-                            <li><a href="https://codepen.com/Jass-Sangha/portfolio">codepen/pen</a></li>
+                            <li><a target="blank" href="https://codepen.com/Jass-Sangha/portfolio">codepen/pen</a></li>
                             <hr>
-                            <li><a href="https://github.com/Jass-Sangha/portfolio">github.com</a></li>
+                            <li><a target="balnk" href="https://github.com/Jass-Sangha/portfolio">github.com</a></li>
                             <hr>
                             <li><a target="blank" href="https://www.instagram.com/jasssangha.1/">instagram.com</a></li>
                             <hr>
                             <li><a target="blank"
                                     href="https://www.linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a></li>
+                            <hr>
+                            <li><label for="close" style="padding: 0 !important;">Close menu</label></li>
                         </ul>
                     </div>
                     <div>
@@ -745,9 +749,13 @@
                         <input type="radio" name="socialAccounts" id="folderToggleSettings">
                         <ul>
                             <li>
-                                <input type="checkbox" name="theme" id="theme" style="margin-top:8px">
-                                <label style="padding-left:14px !important" for="theme">Light Theme</label>
+                                <label
+                                    style="padding-left:0 !important;padding-top:0 !important;padding-right:14px !important"
+                                    for="theme">Light Theme</label>
+                                <input type="checkbox" name="theme" id="theme">
                             </li>
+                            <hr>
+                            <li><label for="close" style="padding: 0 !important;">Close menu</label></li>
                         </ul>
                     </div>
                 </div>
@@ -848,7 +856,7 @@
                 </div>
                 <div contenteditable class="editor">
                     <!-- ADD FILE -->
-                    <div class="index">
+                    <section class="index" id="">
                         <h1>Jaskaran Singh</h1> <br>
                         <h2>Front-end Developer</h2><br>
                         <br>
@@ -859,14 +867,14 @@
                         Open to collaboration, learning, and growth.<br>
                         <br>
 
-                    </div>
-                    <div class="experience">experience.html</div>
-                    <div class="about">about.html</div>
-                    <div class="contact">contact.html</div>
-                    <div class="image">
+                    </section>
+                    <section class="experience" id="_">experience.html</section>
+                    <section class="about">about.html</section>
+                    <section class="contact">contact.html</section>
+                    <section class="image">
                         <img src="https://images.unsplash.com/photo-1566566716921-b50e82140547?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXJteXxlbnwwfHwwfHx8MA%3D%3D "
                             alt="army">
-                    </div>
+                    </section>
                 </div>
                 <!--  -->
             </div>
@@ -929,14 +937,14 @@
     </main>
     <section id="footer">
         <div style="margin-top:-4px">
-            <i><a href="https://github.com/Jass-Sangha/portfolio">main*</a></i>
+            <i><a target="blank" href="https://github.com/Jass-Sangha/portfolio">main*</a></i>
             <span class="hide">
                 <i class="fa-solid fa-circle-xmark"><span> 0</span></i>
                 <i class="fa-solid fa-triangle-exclamation"><span> 0</span></i>
                 <i class="fa-solid fa-circle-info"><span> 1</span></i>
             </span>
-            <i><a href="https://github.com/Jass-Sangha/portfolio">Git Graph</a></i>
-            <i><a href="https://www.linkedin.com/in/jaskaran-singh-sangha/">Linkedin</a></i>
+            <i><a target="blank" href="https://github.com/Jass-Sangha/portfolio">Git Graph</a></i>
+            <i><a target="blank" href="https://www.linkedin.com/in/jaskaran-singh-sangha/">Linkedin</a></i>
         </div>
         <div style="margin-top:-4px">
             <i class="hide">UTF-8</i>
