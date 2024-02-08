@@ -231,22 +231,22 @@
         }
 
         /* width */
-        #editor .editor section::-webkit-scrollbar {
+        #editor .editorContainer .editor section::-webkit-scrollbar {
             height: 2px;
         }
 
         /* Track */
-        #editor .editor section::-webkit-scrollbar-track {
+        #editor .editorContainer .editor section::-webkit-scrollbar-track {
             border-inline: 1px solid var(--border-clr-500);
         }
 
         /* Handle */
-        #editor .editor section::-webkit-scrollbar-thumb {
+        #editor .editorContainer .editor section::-webkit-scrollbar-thumb {
             background: #e8f1ff33;
         }
 
         /* Handle on hover */
-        #editor .editor section::-webkit-scrollbar-thumb:hover {
+        #editor .editorContainer .editor section::-webkit-scrollbar-thumb:hover {
             background: #565656;
         }
 
@@ -660,6 +660,10 @@
             .menu:has(div #menu:checked)~.explorer {
                 margin-left: -200px;
                 opacity: 0;
+            }
+
+            .editorContainer .editor {
+                max-height: calc(100dvh - 75px);
             }
 
         }
