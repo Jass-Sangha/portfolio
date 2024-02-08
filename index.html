@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <title>Portfolio | Jass Sangha</title>
+
     <style>
         section,
         div,
@@ -25,18 +27,12 @@
             padding: 0;
             margin: 0;
         }
-    </style>
-    <title>Portfolio | Jass Sangha</title>
-    <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace;
-        }
-
-        .flex {
-            display: flex;
         }
 
         :root {
@@ -67,9 +63,11 @@
             flex-direction: column;
             justify-content: space-between;
             overflow: hidden;
+            max-width: 1600px;
+            margin-inline: auto;
         }
 
-        input[type="radio"] {
+        input {
             display: none;
         }
 
@@ -89,7 +87,7 @@
             width: 100%;
         }
 
-        /*  */
+        /*  Header */
         #navigation {
             display: flex;
         }
@@ -121,8 +119,6 @@
             text-wrap: nowrap;
         }
 
-
-
         #header div label::before {
             content: '\f069';
             font-family: FontAwesome;
@@ -143,49 +139,50 @@
             font-weight: 300;
         }
 
-        #footer {
-            height: 20px;
-            background-color: var(--secondary-clr-500);
-            padding-inline: 1rem;
-            display: flex;
-            justify-content: space-between;
+        #header {
+            overflow-y: hidden;
+            overflow-x: auto;
         }
 
-        #footer div>i {
-            font-style: normal;
-            font-size: 10px;
-            padding-inline: .3em;
-            color: var(--text-clr-500);
+        /* width */
+        #header::-webkit-scrollbar {
+            height: 2px;
         }
 
-        #footer div i {
-            cursor: default
+        /* Track */
+        #header::-webkit-scrollbar-track {
+            background: #f1f1f1c0;
         }
 
-        #footer div i:hover {
+        /* Handle */
+        #header::-webkit-scrollbar-thumb {
+            background: #7b7b7b;
+        }
+
+        /* Handle on hover */
+        #header::-webkit-scrollbar-thumb:hover {
+            background: #565656;
+        }
+
+        #header div label {
+            height: 100%;
+        }
+
+        #header div input[type="radio"]:checked~label {
             background-color: var(--bg-clr-500);
+            border-bottom: 1px solid var(--border-clr-400);
         }
 
-        #footer div span>i {
-            font-style: normal;
-            font-size: 10px;
-            margin-inline: 0em;
-            color: var(--text-clr-500);
-        }
-
-        #footer i span {
-            font-weight: 300;
-        }
-
-        #footer i a {
-            text-decoration: none;
-            color: var(--text-clr-500)
+        #header div input[type="radio"]:checked~label:after {
+            opacity: .5;
+            cursor: default;
         }
 
         #navigation {
             height: calc(100dvh - 20px);
         }
 
+        /* Editor */
         #editor {
             display: flex;
             flex-direction: column;
@@ -204,8 +201,60 @@
             order: 1;
         }
 
+        #editor .editor {
+            cursor: text;
+        }
+
+        #editor .editor a {
+            cursor: pointer;
+        }
+
+        #editor .editor section {
+            display: none;
+            color: var(--text-clr-500);
+            padding-top: .5rem;
+            padding: .5rem 4rem .5rem 1rem;
+            font-size: 14px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: min-content;
+        }
+
+        #editor:has(div #image:checked)~#navigation .explorer div .image {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #image:checked)~.editor .image {
+            margin-top: 2rem;
+            margin-inline: auto;
+            display: block;
+        }
+
+        /* width */
+        #editor .editor section::-webkit-scrollbar {
+            height: 2px;
+        }
+
+        /* Track */
+        #editor .editor section::-webkit-scrollbar-track {
+            border-inline: 1px solid var(--border-clr-500);
+        }
+
+        /* Handle */
+        #editor .editor section::-webkit-scrollbar-thumb {
+            background: #e8f1ff33;
+        }
+
+        /* Handle on hover */
+        #editor .editor section::-webkit-scrollbar-thumb:hover {
+            background: #565656;
+        }
+
+
+
+        /* Console */
+
         .terminal {
-            /* transform: scale(0, 1); */
             display: flex;
             flex-direction: column;
             height: 190px;
@@ -279,8 +328,85 @@
             padding-bottom: 1.8em;
             border-bottom: 1px solid var(--border-clr-400);
         }
-    </style>
-    <style>
+
+        .terminal {
+            transition: margin 250ms ease-in-out;
+        }
+
+        .terminal .header {
+            position: relative;
+        }
+
+        .terminal .header input {
+            display: none;
+        }
+
+        .terminalToggle::before {
+            content: '';
+            position: absolute;
+            border: solid var(--text-clr-500);
+            border-width: 0 1px 1px 0;
+            display: inline-block;
+            padding: 3px;
+            width: 3px;
+            top: 1em;
+            right: 1em;
+            margin-inline: 1em;
+            margin-bottom: 3px;
+            transform: rotate(45deg);
+            transition: transform 250ms ease-in-out;
+        }
+
+        .terminal:has(.header #terminalToggle:checked) {
+            margin-bottom: -160px;
+        }
+
+        #terminalToggle:checked+label::before {
+            transform: rotate(225deg);
+            top: 1.5em;
+        }
+
+        /* Footer */
+        #footer {
+            height: 20px;
+            background-color: var(--secondary-clr-500);
+            padding-inline: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #footer div>i {
+            font-style: normal;
+            font-size: 10px;
+            padding-inline: .3em;
+            color: var(--text-clr-500);
+        }
+
+        #footer div i {
+            cursor: default
+        }
+
+        #footer div i:hover {
+            background-color: var(--bg-clr-500);
+        }
+
+        #footer div span>i {
+            font-style: normal;
+            font-size: 10px;
+            margin-inline: 0em;
+            color: var(--text-clr-500);
+        }
+
+        #footer i span {
+            font-weight: 300;
+        }
+
+        #footer i a {
+            text-decoration: none;
+            color: var(--text-clr-500)
+        }
+
+        /* Navigation */
         #navigation .explorer .title {
             background-color: var(--secondary-clr-500);
             color: var(--text-clr-500);
@@ -358,138 +484,6 @@
             background-color: var(--bg-clr-500);
         }
 
-        #editor .editor {
-            cursor: text;
-        }
-
-        #editor .editor a {
-            cursor: pointer;
-        }
-
-        #editor .editor section {
-            display: none;
-            color: var(--text-clr-500);
-            padding-top: .5rem;
-            padding: .5rem 4rem .5rem 1rem;
-            font-size: 14px;
-            overflow-x: hidden;
-            overflow-y: auto;
-            height: min-content;
-        }
-
-        /* width */
-        #editor .editor section::-webkit-scrollbar {
-            height: 2px;
-        }
-
-        /* Track */
-        #editor .editor section::-webkit-scrollbar-track {
-            border-inline: 1px solid var(--border-clr-500);
-        }
-
-        /* Handle */
-        #editor .editor section::-webkit-scrollbar-thumb {
-            background: #e8f1ff33;
-        }
-
-        /* Handle on hover */
-        #editor .editor section::-webkit-scrollbar-thumb:hover {
-            background: #565656;
-        }
-
-        #header {
-            overflow-y: hidden;
-            overflow-x: auto;
-        }
-
-        /* width */
-        #header::-webkit-scrollbar {
-            height: 2px;
-        }
-
-        /* Track */
-        #header::-webkit-scrollbar-track {
-            background: #f1f1f1c0;
-        }
-
-        /* Handle */
-        #header::-webkit-scrollbar-thumb {
-            background: #7b7b7b;
-        }
-
-        /* Handle on hover */
-        #header::-webkit-scrollbar-thumb:hover {
-            background: #565656;
-        }
-
-        #header div label {
-            height: 100%;
-        }
-
-        #header div input[type="radio"]:checked~label {
-            background-color: var(--bg-clr-500);
-            border-bottom: 1px solid var(--border-clr-400);
-        }
-
-        #header div input[type="radio"]:checked~label:after {
-            opacity: .5;
-            cursor: default;
-        }
-
-        /* ADD FILE */
-        #editor:has(div #index:checked)~#navigation .explorer .index {
-            background-color: var(--bg-clr-500);
-        }
-
-        #header:has(div #index:checked)~.editor .index {
-            display: block;
-        }
-
-        /*  */
-
-        #editor:has(div #experience:checked)~#navigation .explorer .experience {
-            background-color: var(--bg-clr-500);
-        }
-
-        #header:has(div #experience:checked)~.editor .experience {
-            display: block;
-        }
-
-        /*  */
-        #editor:has(div #contact:checked)~#navigation .explorer .contact {
-            background-color: var(--bg-clr-500);
-        }
-
-        #header:has(div #contact:checked)~.editor .contact {
-            display: block;
-        }
-
-        /*  */
-        #editor:has(div #about:checked)~#navigation .explorer .about {
-            background-color: var(--bg-clr-500);
-        }
-
-        #header:has(div #about:checked)~.editor .about {
-            display: block;
-        }
-
-        /*  */
-
-        #header div #image~label {
-            display: none;
-        }
-
-        #editor:has(div #image:checked)~#navigation .explorer div .image {
-            background-color: var(--bg-clr-500);
-        }
-
-        #header:has(div #image:checked)~.editor .image {
-            margin-top: 2rem;
-            margin-inline: auto;
-            display: block;
-        }
-    </style>
-    <style>
         #navigation .explorer {
             display: flex;
             flex-direction: column;
@@ -558,8 +552,8 @@
         .folder~input[type="checkbox"]:checked~ul {
             display: block;
         }
-    </style>
-    <style>
+
+        /* menu */
         .menu {
             display: flex;
             align-items: center;
@@ -634,8 +628,8 @@
         .folder.settings~input[type="radio"]:checked~ul {
             display: block;
         }
-    </style>
-    <style>
+
+        /* Explorer */
         .explorer {
             /* transform: scale(0, 1); */
             margin-left: -200px;
@@ -680,46 +674,48 @@
             }
         }
 
-        .terminal {
-            transition: margin 250ms ease-in-out;
+
+        /* ! ADD NEW FILE */
+
+        /* INDEX FILE */
+        main:has(#editor .editorContainer #header div #index:checked) #navigation .explorer div .index {
+            background-color: var(--bg-clr-500);
         }
 
-        .terminal .header {
-            position: relative;
+        #header:has(div #index:checked)~.editor .index {
+            display: block;
         }
 
-        .terminal .header input {
-            display: none;
+        /* EXPERIENCE FILE */
+        main:has(#editor .editorContainer #header div #experience:checked) #navigation .explorer div .experience {
+            background-color: var(--bg-clr-500);
         }
 
-        .terminalToggle::before {
-            content: '';
-            position: absolute;
-            border: solid var(--text-clr-500);
-            border-width: 0 1px 1px 0;
-            display: inline-block;
-            padding: 3px;
-            width: 3px;
-            top: 1em;
-            right: 1em;
-            margin-inline: 1em;
-            margin-bottom: 3px;
-            transform: rotate(45deg);
-            transition: transform 250ms ease-in-out;
+        #header:has(div #experience:checked)~.editor .experience {
+            display: block;
         }
 
-        .terminal:has(.header #terminalToggle:checked) {
-            margin-bottom: -160px;
+        /* CONTACT FILE */
+        main:has(#editor .editorContainer #header div #contact:checked) #navigation .explorer div .contact {
+            background-color: var(--bg-clr-500);
         }
 
-        #terminalToggle:checked+label::before {
-            transform: rotate(225deg);
-            top: 1.5em;
+        #header:has(div #contact:checked)~.editor .contact {
+            display: block;
+        }
+
+        /* SKILLS FILE */
+        main:has(#editor .editorContainer #header div #skills:checked) #navigation .explorer div .skills {
+            background-color: var(--bg-clr-500);
+        }
+
+        #header:has(div #skills:checked)~.editor .skills {
+            display: block;
         }
     </style>
 </head>
 
-<body style="max-width:1600px;margin-inline:auto">
+<body>
     <main>
         <section id="navigation">
             <div class="menu">
@@ -738,14 +734,18 @@
                         </label>
                         <input type="radio" name="socialAccounts" id="folderToggleAccounts">
                         <ul>
-                            <li><a target="blank" href="https://codepen.com/Jass-Sangha/portfolio">codepen/pen</a></li>
+                            <li><a target="blank"
+                                    href="https://www.linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a></li>
+                            <hr>
+                            <li><a target="blank"
+                                    href="https://codepen.io/Jass-Sangha-the-encoder/pen/MWxqabv">codepen.io/pen</a>
+                            </li>
                             <hr>
                             <li><a target="balnk" href="https://github.com/Jass-Sangha/portfolio">github.com</a></li>
                             <hr>
                             <li><a target="blank" href="https://www.instagram.com/jasssangha.1/">instagram.com</a></li>
                             <hr>
-                            <li><a target="blank"
-                                    href="https://www.linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a></li>
+                            <li><a target="blank" href="https://www.threads.net/@jasssangha.1">threads.net</a></li>
                             <hr>
                             <li><label for="close" style="padding: 0 !important;">Close menu</label></li>
                         </ul>
@@ -819,13 +819,13 @@
                         <label class="folder" for="folderToggleImages">Images</label>
                         <input type="checkbox" id="folderToggleImages">
                         <ul>
-                            <label class="img" for="image">army.png</label>
+                            <label class="img" for="image">image.png</label>
                         </ul>
                     </div>
                     <!-- ADD FILE -->
                     <label for="index" class="index">index.html</label>
                     <label for="experience" class="experience">experience.html</label>
-                    <label for="about" class="about">about.html</label>
+                    <label for="skills" class="skills">skills.html</label>
                     <label for="contact" class="contact">contact.html</label>
                     <!--  -->
                 </div>
@@ -834,7 +834,6 @@
                     <div class="subTitle">TIMELINE</div>
                 </div>
             </div>
-
         </section>
         <section id="editor">
             <div class="editorContainer">
@@ -849,8 +848,8 @@
                         <label for="experience">experience.html(preview)</label>
                     </div>
                     <div>
-                        <input type="radio" name="openedFile" id="about">
-                        <label for="about">about.html(preview)</label>
+                        <input type="radio" name="openedFile" id="skills">
+                        <label for="skills">skills.html(preview)</label>
                     </div>
                     <div>
                         <input type="radio" name="openedFile" id="contact">
@@ -864,28 +863,120 @@
                 </div>
                 <div contenteditable class="editor">
                     <!-- ADD FILE -->
-                    <section class="index" id="">
+                    <section class="index" id="_index_">
                         <h1>Jaskaran Singh</h1> <br>
-                        <h2>Front-end Developer</h2><br>
+                        <h2>😎 Front-end Developer</h2><br>
                         <br>
-                        Tech has always been my jam! I was coding up C programs at 15, and now I am obsessed with<br>
+                        Tech has always been my jam! I was coding up C programs at 15, and now I am obsessed
+                        with<br>
                         everything from software development to the coolest hardware out there<br>
                         <br>
                         Open to join forces and explore the exciting world of web development! <br>
+                        <br>
                         Open to collaboration, learning, and growth.<br>
                         <br>
 
                     </section>
-                    <section class="experience" id="_">experience.html</section>
-                    <section class="about">about.html</section>
-                    <section class="contact">contact.html</section>
-                    <section class="image">
-                        <img src="https://images.unsplash.com/photo-1566566716921-b50e82140547?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXJteXxlbnwwfHwwfHx8MA%3D%3D "
-                            alt="army">
+                    <section class="experience" id="_experience_">
+                        <div>🧑🏻‍💻 Full Stack Web Development</div>
+                        <br>
+
+                        <img style=" margin-top:-16px;width: 50px;"
+                            src="https://applypanacea.com/logos/ApplyPanaceaShort.png" alt="apply panacea logo">
+                        <h1 style="display: inline-block;">applypanacea.com (Laravel)</h1>
+                        <br>
+                        <br>
+                        <div style="margin-left:1rem">
+                            <b>Features:</b>
+                            <ul style="margin-left:1rem">
+                                <li>CMS</li>
+                                <li>Bulk e-mails</li>
+                                <li>Multi-use Components</li>
+                                <li>Dynamic & variabilized JS quizzes</li>
+                            </ul>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <img style=" margin-top:-16px;width: 50px;"
+                            src="https://thetopbschool.com/logos/TheTopBSchoolShort.png" alt="thetopbschool logo">
+                        <h1 style="display: inline-block;">thetopbschool.com (PHP)</h1>
+                        <br>
+                        <br>
+                        <div style="margin-left:1rem">
+                            <b>Features:</b>
+                            <ul style="margin-left:1rem">
+                                <li>CRM</li>
+                                <li>CSS-only designs</li>
+                                <li>Flexible and data-driven admin-panel</li>
+                                <li>Ever-growing & continuously updated dataset</li>
+                            </ul>
+                        </div>
+
+                    </section>
+                    <section class="skills" id="_skills_">
+                        <b>🤖 Technical Skill-set:</b>
+                        <br>
+                        <br>
+                        <ul style="margin-left:2rem">
+                            <li>Laravel, Bootstrap, Tailwind, SASS, JQuery </li>
+                            <li>HTML , CSS, Php, Javascript</li>
+                            <li>Gitlab, Github, Linux</li>
+                            <li>Clean Code</li>
+                        </ul>
+                        <br>
+                        <br>
+                        <b>🥷 Personal Skill-set:</b>
+                        <br>
+                        <br>
+                        <ul style="margin-left:2rem">
+                            <li>Excellent Communication 🙊</li>
+                            <li>Languages Known - English, Punjabi, Hindi 👾</li>
+                            <li>Highly Disciplined 🙂</li>
+                            <li>Creative mind 🔥</li>
+                        </ul>
+                    </section>
+                    <section class="contact" id="_contact_">
+
+                        <h1>🎫 Social Media:</h1>
+                        <br>
+                        <div contenteditable="false" style="margin-left:1rem">
+                            <li><a target="_blank" href="https://linkedin.com/in/jaskaran-singh-sangha">linkedin.com</a>
+                            </li>
+                            <br>
+                            <li><a target="_blank" href="https://instagram.com/jasssangha.1">instagram.com</a></li>
+
+                            <br>
+                            <li><a target="_blank" href="https://threads.net/@jasssangha.1">threads.net</a></li>
+                            <br>
+
+                        </div>
+                        <br><br>
+                        <h1>🎟️ Email: </h1>
+                        <br>
+                        <div style="margin-left:1rem">
+                            <li>
+                                <a target="_blank" href="mailto:nirbhau.jass@gmail.com">Send an Email</a> to
+                                nirbhau.jass@gmail.com
+                            </li>
+                        </div>
+                        <br><br><br>
+
+
+
+
+                    </section>
+                    <section contenteditable="false" class="image" id="_image_">
+                        <!-- <img src="https://drive.google.com/file/d/1woEzN8O5JkuiP6NjpA1X4wgEQwmIBsxq/view?usp=drivesdk"
+                            alt=""> -->
+                        <iframe style="width:100%;height:400px;"
+                            src="https://drive.google.com/file/d/1woEzN8O5JkuiP6NjpA1X4wgEQwmIBsxq/preview"
+                            allow="autoplay"></iframe>
+                        <!-- <img src="https://scontent.cdninstagram.com/v/t51.2885-15/384757290_1677291819415959_1613618115884424937_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyIn0&_nc_ht=scontent.cdninstagram.com&_nc_cat=103&_nc_ohc=QMRW2UaQyHMAX8qGyZM&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzIwMzE5NTg3NjY3MTk0MTY5Mw%3D%3D.2-ccb7-5&oh=00_AfCjgYIaaHxz7B3qiPyEZuBHqw1VTFQNpNNY_wxDCcnvlA&oe=65C7F6EC&_nc_sid=10d13b"
+                            alt=" image"> -->
                     </section>
                 </div>
                 <!--  -->
-            </div>
             </div>
             <div class="terminal">
                 <div class="content">
