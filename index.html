@@ -197,7 +197,7 @@
         .editorContainer .editor {
             display: flex;
             flex-flow: column;
-            max-height: calc(100dvh - 200px);
+            max-height: calc(100dvh - 240px);
             order: 1;
         }
 
@@ -365,6 +365,11 @@
             transform: rotate(225deg);
             top: 1.5em;
         }
+
+        main:has(.terminal .header #terminalToggle:checked) #editor .editorContainer .editor {
+            max-height: calc(100dvh - 75px);
+        }
+
 
         /* Footer */
         #footer {
@@ -662,10 +667,6 @@
                 opacity: 0;
             }
 
-            .editorContainer .editor {
-                max-height: calc(100dvh - 75px);
-            }
-
         }
 
         @media(max-width:768px) {
@@ -879,7 +880,6 @@
                         <br>
                         Open to collaboration, learning, and growth.<br>
                         <br>
-
                     </section>
                     <section class="experience" id="_experience_">
                         <div>🧑🏻‍💻 Full Stack Web Development</div>
